@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ Clinic - Welcome</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+            flex: auto;
+            }
+        /* General body styling */
+        html, body {
+            margin: 0;
+            height: 100%;
+            min-height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        /* Navigation links */
+        nav a {
+            margin-right: 20px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .sign-up {
+            padding: 5px 15px;
+            border: 1px solid black;
+            text-decoration: none;
+            color: black;
+            border-radius: 5px;
+        }
+
+        /* Main welcome container */
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 40px 0;
+        }
+
+        /* Two-column layout with responsive settings */
+        .welcome-content {
+            display: flex;
+            width: 80%;
+            height: 100%; /* Ensures content fills container height */
+                
+        }
+
+        .text-section, .image-section {
+            padding: 40px;
+            flex: 1; /* This ensures both sections take up equal space */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-section {
+            background-color: #f4f4f4;
+        }
+
+        .text-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .text-section p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sign-up-btn {
+            padding: 10px 20px;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .sign-up-btn:hover {
+            background-color: #ddd;
+        }
+
+        .image-section {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .footer-content div {
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .footer-content .separator {
+            border-left: 1px solid #333;
+            height: 40px;
+            margin: 0 20px;
+        }
+
+        .footer-content p {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        /* Bold styling for "Contact us" and "Location" */
+        .footer-content p strong {
+            font-weight: bold;
+        }
+
+        .footer-bottom {
+            font-size: 14px;
+            color: black;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 768px) {
+            .text-section, .image-section {
+                flex: 1 1 100%; /* Full width on smaller screens */
+                padding: 20px;
+            }
+
+            .text-section h2, .text-section p, .footer-content p {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div>XYZ CLINIC</div>
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href="#">Doctors</a>
+            <a href="login.html" class="sign-up">Sign Up</a>
+        </nav>
+    </header>
+
+    <!-- Welcome Content Container -->
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <!-- Text Section -->
+            <div class="text-section">
+                <h2>Welcome to XYZ Clinic</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <a href="login.html" class="sign-up-btn">Sign up to schedule an appointment</a>
+            </div>
+            <!-- Image Section -->
+            <div class="image-section">
+                <div class="image-placeholder"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <p>XYZ CLINIC</p>
+            </div>
+            <div class="separator"></div>
+            <div>
+                <p><strong>Contact us</strong><br>81234567</p>
+            </div>
+            <div class="separator"></div>
+            <div>
+                <p><strong>Location</strong><br>Singapore 812345<br>Nanyang Heights</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2010 — 2020 Privacy — Terms
+        </div>
+    </footer>
+
+</body>
+</html>
