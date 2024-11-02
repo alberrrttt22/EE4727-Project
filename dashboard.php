@@ -1,3 +1,14 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    // Redirect to the login page if the user is not authenticated
+    header("Location: loginform.php");
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +61,11 @@
             text-decoration: none;
             color: #333;
             border-radius: 5px;
+        }
+
+        nav span{
+            color:blue;
+            margin-left: 20px;
         }
 
         /* Main content styling */
@@ -141,19 +157,26 @@
     </style>
 </head>
 <body>
-
     <!-- Header Section -->
     <header>
         <div class="header-logo">XYZ CLINIC</div>
         <nav>
             <a href="Dashboard.html">Dashboard</a>
             <a href="Doctors.html">Doctors</a>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <!-- Display the user's name if logged in -->
+            <span>Welcome, <?php echo htmlspecialchars($_SESSION['fullname']); ?>!</span>
+            <?php else: ?>
+            <!-- Display the Sign In link if not logged in -->
+            <a href="loginform.php" class="sign-in">Sign In</a>
+            <?php endif; ?>
+            
         </nav>
     </header>
 
     <!-- Dashboard Section -->
     <div class="dashboard-container">
+        <?php echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['fullname']) . "!"; ?>
         <h2>My Appointments</h2>
         <table>
             <thead>

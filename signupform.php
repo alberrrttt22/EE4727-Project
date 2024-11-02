@@ -1,3 +1,14 @@
+<?php
+	if (isset($_GET['message']) && $_GET['message'] == 'success') {
+		echo "<script> window.onload = function()  {
+                alert('Signed up successfully!');";
+		        echo "window.location.href = 'signupform.php';}; </script>";
+	} else if (isset($_GET['message']) && $_GET['message'] == 'fail'){
+		echo "<script> window.onload = function() {
+                alert('There is already an account with that email');";
+		        echo "window.location.href = 'signupform.php';}; </script>";
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,6 +200,11 @@
                 display: none;
             }
         }
+
+        .errors {
+            color: red;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -209,20 +225,27 @@
             <!-- Form Section -->
             <div class="form-section">
                 <h2>Sign Up</h2>
-                <form action="#" method="post">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                <form id="signup-form" action="files/php/signup.php" method="post">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required> <span class="errors" id="name-error"></span>
 
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required> <span class="errors" id="email-error"></span>
 
                     <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-
+                    <input type="password" id="password" name="password" required><span class="errors" id="password-error"></span>
+                    <div id="requirements" class="requirements" style = "display:none;">
+                        <h4>Password Requirements:</h4>
+                        <ul>
+                            <li>At least 8 characters long</li>
+                            <li>Must contain at least 1 special character</li>
+                            <li>Must contain at least 1 uppercase letter</li>
+                        </ul>
+                    </div>
                     <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <input type="password" id="confirm-password" name="confirm-password" required><span class="errors" id="cfm-pw-error"></span>
 
-                    <button type="submit">Submit</button>
+                    <button type="submit">Sign up</button>
                 </form>
                 <p>Already have an account? <a href="login.html">Sign in</a></p>
             </div>
@@ -248,6 +271,6 @@
             © 2010 — 2020 Privacy — Terms
         </div>
     </footer>
-
+    <script type="text/javascript" src="files/javascript/formValidation.js"></script>
 </body>
 </html>
