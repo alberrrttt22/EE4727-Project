@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,11 +147,17 @@
 
     <!-- Header Section -->
     <header>
-        <div>XYZ CLINIC</div>
+        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
-            <a href="Dashboard.html">Dashboard</a>
-            <a href="Doctors.html">Doctors</a>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="doctors.php">Doctors</a>
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <!-- Display the user's name if logged in -->
+            <span>Welcome, <?php echo htmlspecialchars($_SESSION['fullname']); ?>!</span>
+            <?php else: ?>
+            <!-- Display the Sign In link if not logged in -->
+            <a href="loginform.php" class="sign-in">Sign In</a>
+            <?php endif; ?>
         </nav>
     </header>
 
@@ -160,26 +169,35 @@
             <div class="doctor-card">
                 <img src="#" alt="Doctor Profile Image">
                 <h3>Dr Tan Ah Seng</h3>
-                <a href="#">See More ></a>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
+                    echo '<a href="SCHEDULES/TASS.php">See More ></a>';
+                } else{
+                    echo '<a href="loginform.php">Sign up to book an appointment! ></a>';
+                }; ?>
+                
             </div>
             <!-- Doctor 2 -->
             <div class="doctor-card">
                 <img src="#" alt="Doctor Profile Image">
                 <h3>Dr Wong Xiao Ming</h3>
-                <a href="#">See More ></a>
+                <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
+                    echo '<a href="SCHEDULES/WXMS.php">See More ></a>';
+                } else{
+                    echo '<a href="loginform.php">Sign up to book an appointment! ></a>';
+                }; ?>
             </div>
             <!-- Doctor 3 -->
-            <div class="doctor-card">
+            <!-- <div class="doctor-card">
                 <img src="#" alt="Doctor Profile Image">
                 <h3>Dr Lim Ah Xiang</h3>
                 <a href="#">See More ></a>
-            </div>
+            </div> -->
             <!-- Doctor 4 -->
-            <div class="doctor-card">
+            <!-- <div class="doctor-card">
                 <img src="#" alt="Doctor Profile Image">
                 <h3>Dr Tan Xiao Wen</h3>
                 <a href="#">See More ></a>
-            </div>
+            </div> -->
         </div>
     </div>
 

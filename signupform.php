@@ -2,7 +2,7 @@
 	if (isset($_GET['message']) && $_GET['message'] == 'success') {
 		echo "<script> window.onload = function()  {
                 alert('Signed up successfully!');";
-		        echo "window.location.href = 'signupform.php';}; </script>";
+		        echo "window.location.href = 'loginform.php';}; </script>";
 	} else if (isset($_GET['message']) && $_GET['message'] == 'fail'){
 		echo "<script> window.onload = function() {
                 alert('There is already an account with that email');";
@@ -211,11 +211,11 @@
 
     <!-- Header Section -->
     <header>
-        <div>XYZ CLINIC</div>
+        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
-            <a href="#">Dashboard</a>
-            <a href="#">Doctors</a>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="doctors.php">Doctors</a>
+            <a href="loginform.php" class="sign-in">Sign In</a>
         </nav>
     </header>
 

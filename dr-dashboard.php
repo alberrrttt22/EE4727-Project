@@ -8,14 +8,17 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit();
 }
 
-if ($_SESSION['id'] == 1 || $_SESSION['id'] == 2){
-    header("Location: dr-dashboard.php");
-}
-
-$patientID = $_SESSION['id'];
-$query = ("SELECT *
-    FROM appointments a JOIN users u 
-    ON a.patient_id = u.id  WHERE patient_id = '$patientID';");
+$doctorID = $_SESSION['id'];
+$query = ("SELECT 
+            a.id AS appointment_id,
+            a.appointment_date,
+            a.appointment_time,
+            doctor.fullname AS doctor_name,
+            patient.fullname AS patient_name
+          FROM appointments a
+          JOIN users doctor ON a.doctor_id = doctor.id
+          JOIN users patient ON a.patient_id = patient.id
+          WHERE doctor.id = '$doctorID';");
 
 $result = $db->query($query);
 
@@ -205,7 +208,7 @@ while ($row = $result->fetch_assoc()){
         <table>
             <thead>
                 <tr>
-                    <th>Doctor</th>
+                    <th>Patient</th>
                     <th>Location</th>
                     <th>Date</th>
                     <th>Time</th>
@@ -220,22 +223,14 @@ while ($row = $result->fetch_assoc()){
     <?php else: ?>
         <?php foreach ($appointments as $index=>$appointment): ?>
             <tr>
-                <td><?php 
-                if ($appointment['doctor_id'] == 1){
-                    echo htmlspecialchars('Dr Tan Ah Seng');
-                } else if ($appointment['doctor_id'] == 2){
-                    echo htmlspecialchars('Dr Wong Xiao Ming');
-                }
-                ?>
-                </td>     
+                <td><?php echo htmlspecialchars($appointment['patient_name']); ?></td>
                 <td><?php echo htmlspecialchars("Nanyang Heights"); ?></td>
                 <td><?php echo date("l, d F Y", strtotime($appointment['appointment_date'])); ?></td>
                 <td><?php echo date("g:iA", strtotime($appointment['appointment_time'])); ?></td>
-                <td><form action="files/php/reschedule-handler.php" id="reschedule-form-<?php echo $index;?>" method="POST">
-                    <input type="hidden" name="doctor_id" value="<?= $appointment['doctor_id'] ?>">
-                    <input type="hidden" name="date" value="<?= $appointment['appointment_date'] ?>"> 
-                    <input type="hidden" name="time" value="<?= $appointment['appointment_time'] ?>">
-                    <button onclick="confirmAlert(<?php echo $index; ?>);" type="button" id="reschedule-button" action="files/php/reschedule-appointment.php" class="edit-button">Reschedule/Cancel</button>
+                <td><form action="files/php/dr-reschedule-handler.php" id="reschedule-form-<?php echo $index;?>" method="POST">
+                    <input type="hidden" name="appointment_id" value="<?php echo $appointment['appointment_id'] ?>">
+                    <input type="hidden" name="doctor_id" value="<?php echo $doctorID ?>">
+                    <button onclick="confirmAlert(<?php echo $index; ?>);" type="button" id="reschedule-button" class="edit-button">Reschedule/Cancel</button>
                     </form>
                 </td>
             </tr>
@@ -267,11 +262,12 @@ while ($row = $result->fetch_assoc()){
     </footer>
     <script>
         function confirmAlert(index){
-            var confirmation = confirm('This will cancel your current appointment and redirect you to the doctor\'s booking page. Are you sure you want to continue?')
+            var confirmation = confirm('This will cancel your appointment. Are you sure you want to continue?')
             if (confirmation){
                 document.getElementById('reschedule-form-' + index).submit();
             }
         }
     </script>
+
 </body>
 </html>

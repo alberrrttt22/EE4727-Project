@@ -1,12 +1,16 @@
 <?php
 	if (isset($_GET['message']) && $_GET['message'] == 'fail'){
 		echo "<script> window.onload = function() {
-                alert('Username or password is incorrect!');";
-		        echo "window.location.href = 'loginform.php';}; </script>";
-	} else if (isset($_GET['message']) && $_GET['message'] == 'resetted'){
+                alert('Email not found!');";
+		echo "window.location.href = 'pw-reset.php';}; </script>";
+	} else if (isset($_GET['message']) && $_GET['message'] == 'success'){
         echo "<script> window.onload = function() {
-            alert('Password reset successfully!');";
-            echo "window.location.href = 'loginform.php';}; </script>";
+                alert('Password reset email sent!');";
+		echo "window.location.href = 'pw-reset.php';}; </script>";
+    } else if (isset($_GET['message']) && $_GET['message'] == 'expired'){
+    echo "<script> window.onload = function() {
+        alert('The link has expired. Please try again');";
+    echo "window.location.href = 'pw-reset.php';}; </script>";
     }
 ?>
 <!DOCTYPE html>
@@ -162,13 +166,11 @@
 
     <div class="login-container">
         <div class="login-form">
-            <h2>Sign In</h2>
-            <form action="files/php/login.php" method="POST">
+            <h2>Forget Password</h2>
+            <form action="files/php/pw-reset-handler.php" method="POST">
                 <input type="email" name="email" id="email" placeholder="Email" required>
-                <input type="password" name="password" id="email" placeholder="Password" required>
-                <button type="submit">Sign In</button>
+                <button type="submit">Reset Password</button>
                 <div><br>
-                    <a href="pw-reset.php">Forgot password?</a><br>
                     Don't have an account? <a href="signupform.php">Sign up</a>
                 </div>
             </form>

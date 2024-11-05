@@ -15,12 +15,11 @@ if ($result && $result->num_rows>0){
     exit();
 }
 
-$query = ("INSERT INTO users (fullname, email, hashed_password)
-    VALUES ('$fullname', '$email', '$hashedPassword')
+$query = ("INSERT INTO users (fullname, email, hashed_password, user_role )
+    VALUES ('$fullname', '$email', '$hashedPassword','patient')
     ;");
 
 $db->query($query);
 header('Location: ../../signupform.php?message=success');
-
 
 ?>

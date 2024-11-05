@@ -1,14 +1,3 @@
-<?php
-	if (isset($_GET['message']) && $_GET['message'] == 'fail'){
-		echo "<script> window.onload = function() {
-                alert('Username or password is incorrect!');";
-		        echo "window.location.href = 'loginform.php';}; </script>";
-	} else if (isset($_GET['message']) && $_GET['message'] == 'resetted'){
-        echo "<script> window.onload = function() {
-            alert('Password reset successfully!');";
-            echo "window.location.href = 'loginform.php';}; </script>";
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,15 +151,21 @@
 
     <div class="login-container">
         <div class="login-form">
-            <h2>Sign In</h2>
-            <form action="files/php/login.php" method="POST">
-                <input type="email" name="email" id="email" placeholder="Email" required>
-                <input type="password" name="password" id="email" placeholder="Password" required>
-                <button type="submit">Sign In</button>
-                <div><br>
-                    <a href="pw-reset.php">Forgot password?</a><br>
-                    Don't have an account? <a href="signupform.php">Sign up</a>
+            <h2>Reset Password</h2>
+            <form id="reset-form" action="files/php/pw-change.php" method="POST">
+                <!-- <label for="password">Password:</label> -->
+                <input type="password" id="password" name="password" placeholder="Password" required><span class="errors" id="password-error"></span>
+                <div id="requirements" class="requirements" style = "display:none;">
+                    <h4>Password Requirements:</h4>
+                    <ul>
+                        <li>At least 8 characters long</li>
+                        <li>Must contain at least 1 special character</li>
+                        <li>Must contain at least 1 uppercase letter</li>
+                    </ul>
                 </div>
+                <!-- <label for="confirm-password">Confirm Password:</label> -->
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required><span class="errors" id="cfm-pw-error"></span>
+                <button type="submit">Reset Password</button>
             </form>
         </div>
     </div>
@@ -193,5 +188,6 @@
             © 2010 — 2020 Privacy — Terms
         </div>
     </footer>
+    <script type="text/javascript" src="files/javascript/resetValidation.js"></script>
 </body>
 </html>
