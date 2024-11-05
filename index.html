@@ -15,7 +15,7 @@ session_start();
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         main {
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
@@ -30,7 +30,7 @@ session_start();
             justify-content: center;
             height: 100%;
         }
-
+        
         div a {
             text-decoration: none;
             color: black;
@@ -38,11 +38,11 @@ session_start();
         a:visited {
         color: rgb(0, 0, 0);
         }
-
+        
         a:hover {
         color: blue;
         }
-
+        
         html, body {
             margin: 0;
             height: 70%;
@@ -50,19 +50,21 @@ session_start();
         }
         /* Header styling */
         header {
+            background-color: #f4f4f4;
             display: flex;
             justify-content: space-between;
             padding: 20px;
             font-weight: bold;
+            border-bottom: 1px solid #ccc;
         }
-
+        
         /* Navigation links */
         nav a {
             margin-right: 20px;
             text-decoration: none;
             color: black;
         }
-
+        
         .sign-up {
             padding: 5px 15px;
             border: 1px solid black;
@@ -70,7 +72,7 @@ session_start();
             color: black;
             border-radius: 5px;
         }
-
+        
         /* Main welcome container */
         .welcome-container {
             display: flex;
@@ -79,15 +81,14 @@ session_start();
             flex-grow: 1;
             padding: 40px 0;
         }
-
+        
         /* Two-column layout with responsive settings */
         .welcome-content {
             display: flex;
             width: 80%;
             height: 100%; /* Ensures content fills container height */
-                
         }
-
+        
         .text-section, .image-section {
             padding: 40px;
             flex: 1; /* This ensures both sections take up equal space */
@@ -96,17 +97,17 @@ session_start();
             align-items: center;
             justify-content: center;
         }
-
+        
         .text-section {
             background-color: #f4f4f4;
         }
-
+        
         .text-section h2 {
             font-size: 24px;
             margin-bottom: 20px;
             text-align: center;
         }
-
+        
         .text-section p {
             font-size: 16px;
             color: #333;
@@ -114,43 +115,132 @@ session_start();
             margin-bottom: 20px;
             text-align: center;
         }
-
-        .sign-up-btn {
+        
+        /* Sign-up and Logout button styling */
+        .sign-up-btn, #logout-btn {
             padding: 10px 20px;
-            background-color: white;
-            color: black;
             font-size: 16px;
-            border: 1px solid black;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        .sign-up-btn {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
         }
 
         .sign-up-btn:hover {
             background-color: #ddd;
         }
 
+        /* Logout button container styling */
+        .logout-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Logout button styling */
+        #logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
+        }
+
+        
         .image-section {
             background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
-
-        .image-placeholder {
-            width: 150px;
-            height: 150px;
-            background-color: white;
+        
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 100%;
+            position: relative;
+        }
+        
+        /* Hide images by default */
+        .mySlides {
+            display: none;
+        }
+        
+        /* Ensure all slideshow images have the same size */
+        .slideshow-container img {
+            width: 100%;   /* Ensures the image fits the container's width */
+            height: 300px; /* Set a fixed height for the images */
+            object-fit: cover; /* Ensures the image covers the area without distorting aspect ratio */
+            object-position: center; /* Centers the image in case it's cropped */
             border-radius: 5px;
         }
-
+        
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .prev {
+            left: 0;
+        }
+        
+        .next {
+            right: 0;
+        }
+        
+        /* Animation */
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        
+        @keyframes fade {
+            from { opacity: 0.4; } 
+            to { opacity: 1; }
+        }
+        
         /* Footer styling */
         footer {
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
         }
-
+        
         .footer-content {
             display: flex;
             justify-content: center;
@@ -159,42 +249,42 @@ session_start();
             margin: 0 auto;
             flex-wrap: wrap;
         }
-
+        
         .footer-content div {
             margin: 0 20px;
             text-align: center;
         }
-
+        
         .footer-content .separator {
             border-left: 1px solid #333;
             height: 40px;
             margin: 0 20px;
         }
-
+        
         .footer-content p {
             font-size: 14px;
             color: black;
             line-height: 1.5;
         }
-
+        
         /* Bold styling for "Contact us" and "Location" */
         .footer-content p strong {
             font-weight: bold;
         }
-
+        
         .footer-bottom {
             font-size: 14px;
             color: black;
             margin-top: 10px;
         }
-
+        
         /* Responsive Design for Smaller Screens */
         @media (max-width: 768px) {
             .text-section, .image-section {
                 flex: 1 1 100%; /* Full width on smaller screens */
                 padding: 20px;
             }
-
+        
             .text-section h2, .text-section p, .footer-content p {
                 text-align: center;
             }
@@ -224,36 +314,78 @@ session_start();
         <div class="welcome-content">
             <!-- Text Section -->
             <div class="text-section">
-                <h2>Welcome to XYZ Clinic</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="login.html" class="sign-up-btn">Sign in to schedule an appointment</a>
+                <h2>XYZ Clinic: Where Your Smile Matters</h2>
+                <p>At XYZ Clinic, we are dedicated to providing exceptional dental care in a warm and welcoming environment. Our team of highly skilled professionals uses the latest technology and techniques to ensure that every patient receives personalized treatment tailored to their unique needs. We offer a comprehensive range of services, from routine check-ups and preventive care to advanced cosmetic and restorative dentistry.</p>
+
+                <?php if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true): ?>
+                    <!-- Sign-up button if not logged in -->
+                    <a href="loginform.php" class="sign-up-btn">Sign in to schedule an appointment</a>
+                <?php endif; ?>
             </div>
-            <!-- Image Section -->
+            
+            <!-- Image Slideshow Section -->
             <div class="image-section">
-                <div class="image-placeholder"></div>
+                <div class="slideshow-container">
+                    <div class="mySlides fade">
+                        <img src="slideshow/Slideshow_photo3.jpg" alt="Image 1">
+                    </div>
+                    <div class="mySlides fade">
+                        <img src="slideshow/Slideshow_photo5.jpg" alt="Image 2">
+                    </div>
+                    <div class="mySlides fade">
+                        <img src="slideshow/Slideshow_photo4.jpg" alt="Image 3">
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Logout button (appears only if logged in) -->
+    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+    <div class="logout-button-container">
+        <a href="files/php/logout.php" id="logout-btn">Logout</a>
+    </div>
+    <?php endif; ?>
+
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
-            <div>
-                <p>XYZ CLINIC</p>
-            </div>
+            <div><p>XYZ CLINIC</p></div>
             <div class="separator"></div>
-            <div>
-                <p><strong>Contact us</strong><br>81234567</p>
-            </div>
+            <div><p><strong>Contact us</strong><br>81234567</p></div>
             <div class="separator"></div>
-            <div>
-                <p><strong>Location</strong><br>Singapore 812345<br>Nanyang Heights</p>
-            </div>
+            <div><p><strong>Location</strong><br>Singapore 812345<br>Nanyang Heights</p></div>
         </div>
-        <div class="footer-bottom">
-            © 2010 — 2020 Privacy — Terms
-        </div>
+        <div class="footer-bottom">© 2010 — 2020 Privacy — Terms</div>
     </footer>
 
+    <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("mySlides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 5000);
+        }
+
+        function plusSlides(n) {
+            slideIndex += n;
+            let slides = document.getElementsByClassName("mySlides");
+            if (slideIndex > slides.length) {slideIndex = 1}
+            if (slideIndex < 1) {slideIndex = slides.length}
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+        }
+    </script>
 </body>
 </html>

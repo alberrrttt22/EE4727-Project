@@ -27,6 +27,7 @@
             justify-content: space-between;
             padding: 20px;
             font-weight: bold;
+            border-bottom: 1px solid #ccc;
         }
 
         /* Navigation links */

@@ -2,6 +2,13 @@
 session_start();
 include '../files/php/connect.php';
 
+// Set the default time zone
+date_default_timezone_set('Singapore'); // Adjust as necessary
+
+if ($_SESSION['id'] > 2){
+    $patientID = $_SESSION['id'];
+}
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     // Redirect to the login page if the user is not authenticated
     header("Location: ../loginform.php");
@@ -12,7 +19,6 @@ if (isset($_POST['datePicker'])) {
 } else {
     $date = date("Y-m-d");
 }
-
 
 if (isset($_GET['message']) && $_GET['message'] == 'fail'){
     echo "<script> window.onload = function() {
@@ -115,9 +121,17 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             cursor: pointer;
             font-size: 16px;
         }
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+        color: rgb(0, 0, 0);
+        }
 
-        .table-container {
-            overflow-x: auto;
+        a:hover {
+        color: blue;
         }
 
         table {
@@ -154,13 +168,12 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             text-decoration: none;
             display: block;
         }
-
+        
+        /* Footer styling */
         footer {
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
-            width: 100%;
-            margin-top: auto;
         }
 
         .footer-content {
@@ -183,10 +196,82 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             margin: 0 20px;
         }
 
+        .footer-content p {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        /* Bold styling for "Contact us" and "Location" */
+        .footer-content p strong {
+            font-weight: bold;
+        }
+
         .footer-bottom {
             font-size: 14px;
             color: black;
             margin-top: 10px;
+        }
+            
+        footer {
+                background-color: #f4f4f4;
+                padding: 20px 0;
+                text-align: center;
+                width: 100%;
+                margin-top: auto;
+            }
+
+            .footer-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 800px;
+                margin: 0 auto;
+                flex-wrap: wrap;
+            }
+
+            .footer-content div {
+                margin: 0 20px;
+                text-align: center;
+            }
+
+            .footer-content .separator {
+                border-left: 1px solid #333;
+                height: 40px;
+                margin: 0 20px;
+            }
+
+            .footer-bottom {
+                font-size: 14px;
+                color: black;
+                margin-top: 10px;
+            }
+            
+        /* Logout button container styling */
+        .logout-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        /* Logout button styling */
+        #logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
         }
     </style>
 </head>
@@ -194,7 +279,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
 
     <!-- Header Section -->
     <header>
-        <div>XYZ CLINIC</div>
+    <div><a class="index-link" href="../index.html">XYZ CLINIC</a></div>
         <nav>
             <a href="../dashboard.php">Dashboard</a>
             <a href="../doctors.php">Doctors</a>
@@ -213,7 +298,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         <h1>Dr Wong Xiao Ming</h1>
         <div class="filter-section">
         <form method="POST" action="TASS.php" id="dateForm">
-            <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>" onchange="testFunction(this);">
+            <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>">
         </form>
         </div>
 
@@ -227,7 +312,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($time_slots as $time): ?>
+                <?php foreach ($time_slots as $index=>$time): ?>
                 <tr>
                     <td><?= date("g:i A", strtotime($time)) ?></td>
                         <?php
@@ -245,11 +330,11 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                     <td class="<?= $is_available ? 'available-slot' : 'unavailable-slot' ?>">
                         <?php if ($is_available): ?>
                             <!-- Form to send appointment details via POST -->
-                            <form id="appointment-form" action="../files/php/set-appointment.php" method="POST" style="display:block;">
-                                <input type="hidden" name="date" value="<?= $date ?>">
-                                <input type="hidden" name="time" value="<?= $time ?>">
-                                <input type="hidden" name="doctor_id" value="<?= $doctor_id ?>">
-                                <button type="button" onclick="confirmAlert('<?php echo $time ?>');" class="available-slot" style="background:none; border:none; color:inherit; cursor:pointer; width:100%;">
+                            <form id="appointment-form-<?php echo $index;?>" action="../files/php/set-appointment.php" method="POST" style="display:block;">
+                                <input type="hidden" name="date" value="<?php echo $date ?>">
+                                <input type="hidden" name="time" value="<?php echo $time ?>">
+                                <input type="hidden" name="doctor_id" value="<?php echo $doctor_id ?>">
+                                <button type="button" onclick="confirmAlert('<?php echo $time ?>', '<?php echo $index ?>');" class="available-slot" style="background:none; border:none; color:inherit; cursor:pointer; width:100%;">
                                     Available
                                 </button>
                             </form>
@@ -263,7 +348,9 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             </table>
         </div>
     </div>
-
+    <div class="logout-button-container">
+        <a href="files/php/logout.php" id="logout-btn">Log Out</a>
+    </div>
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
@@ -309,7 +396,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             }
         });
 
-        function confirmAlert(selectedTime){
+        function confirmAlert(selectedTime, index){
             const datePicker = document.getElementById('datePicker');
             const date = new Date(datePicker.value);
             const day = date.getDate();
@@ -319,8 +406,9 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
 
             const selectedDate = `${month}/${day}/${year}`
             var confirmation = confirm(`${selectedDate} at ${selectedTime} has been selected for booking. Would you like to continue?`);
+            
             if (confirmation) {
-                document.getElementById('appointment-form').submit(); 
+                document.getElementById('appointment-form-'+ index).submit(); 
             }
         }
 
@@ -333,5 +421,9 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         
         
     </script>
+
+
+
+
 </body>
 </html>

@@ -38,6 +38,7 @@
             justify-content: space-between;
             padding: 20px;
             font-weight: bold;
+            border-bottom: 1px solid #ccc;
         }
 
         /* Division links */
@@ -61,10 +62,8 @@
 
         .sign-in {
             padding: 5px 15px;
-            border: 1px solid black;
             text-decoration: none;
             color: black;
-            border-radius: 5px;
         }
 
         /* Form container */

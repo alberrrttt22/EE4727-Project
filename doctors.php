@@ -40,12 +40,13 @@ session_start();
             color: black;
         }
         a:visited {
-        color: rgb(0, 0, 0);
+            color: rgb(0, 0, 0);
         }
 
         a:hover {
-        color: blue;
+            color: blue;
         }
+
         /* Navigation links */
         nav a {
             margin-right: 20px;
@@ -55,10 +56,13 @@ session_start();
 
         .sign-in {
             padding: 5px 15px;
-            border: 1px solid black;
             text-decoration: none;
             color: black;
-            border-radius: 5px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
 
         /* Main content styling */
@@ -69,10 +73,8 @@ session_start();
             padding: 40px 20px;
             flex-grow: 1;
         }
-
-        h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
+        .doctor-card a:hover {
+            color: blue; /* Change to blue on hover */
         }
 
         /* Doctors grid styling */
@@ -89,7 +91,8 @@ session_start();
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);    
+            margin-bottom: 10px;
         }
 
         .doctor-card img {
@@ -118,7 +121,6 @@ session_start();
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
-            border-top: 1px solid #ccc;
         }
 
         .footer-content {
@@ -141,10 +143,49 @@ session_start();
             margin: 0 20px;
         }
 
+        .footer-content p {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        /* Bold styling for "Contact us" and "Location" */
+        .footer-content p strong {
+            font-weight: bold;
+        }
+
         .footer-bottom {
             font-size: 14px;
             color: black;
             margin-top: 10px;
+        }
+
+        /* Logout button container styling */
+        .logout-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Logout button styling */
+        #logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
         }
 
         /* Responsive Design */
@@ -179,37 +220,26 @@ session_start();
         <div class="doctors-grid">
             <!-- Doctor 1 -->
             <div class="doctor-card">
-                <img src="#" alt="Doctor Profile Image">
-                <h3>Dr Tan Ah Seng</h3>
+                <img src="drpic/TAS.jpg" alt="Doctor Profile Image">                
+                <h3>Dr Tan Ah Seng</h3><br>
+                <p style="text-align: justify;">Dr. Tan is a dedicated general dentist with over a decade of experience in family dentistry. He specializes in preventive care, restorative dentistry, and cosmetic procedures, using the latest techniques and technologies to ensure his patients achieve optimal oral health. He is passionate about educating her patients on good dental hygiene practices and creating personalized treatment plans that meet their unique needs.</p><br>
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true){
                     echo '<a href="SCHEDULES/TASS.php">See More ></a>';
                 } else{
-                    echo '<a href="loginform.php">Sign up to book an appointment! ></a>';
+                    echo '<a href="loginform.php">Sign in to book an appointment! ></a>';
                 }; ?>
-                
             </div>
             <!-- Doctor 2 -->
             <div class="doctor-card">
-                <img src="#" alt="Doctor Profile Image">
-                <h3>Dr Wong Xiao Ming</h3>
+                <img src="drpic/WXM.jpg" alt="Doctor Profile Image">
+                <h3>Dr Wong Xiao Ming</h3><br>
+                <p style="text-align: justify;">Dr. Wong is a compassionate pediatric dentist known for his gentle approach to treating young patients. He pursued a specialization in pediatric dentistry, focusing on the unique dental needs of children and adolescents. Dr. Wong creates a welcoming and playful atmosphere in his clinic, helping children feel at ease during their visits. He emphasizes the importance of preventive care and teaches kids about maintaining good oral health in a fun and engaging way.</p><br>
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true){
                     echo '<a href="SCHEDULES/WXMS.php">See More ></a>';
                 } else{
-                    echo '<a href="loginform.php">Sign up to book an appointment! ></a>';
+                    echo '<a href="loginform.php">Sign in to book an appointment! ></a>';
                 }; ?>
             </div>
-            <!-- Doctor 3 -->
-            <!-- <div class="doctor-card">
-                <img src="#" alt="Doctor Profile Image">
-                <h3>Dr Lim Ah Xiang</h3>
-                <a href="#">See More ></a>
-            </div> -->
-            <!-- Doctor 4 -->
-            <!-- <div class="doctor-card">
-                <img src="#" alt="Doctor Profile Image">
-                <h3>Dr Tan Xiao Wen</h3>
-                <a href="#">See More ></a>
-            </div> -->
         </div>
     </div>
 
@@ -232,6 +262,13 @@ session_start();
             © 2010 — 2020 Privacy — Terms
         </div>
     </footer>
+
+    <!-- Logout Button (only displayed if logged in) -->
+    <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+        <div class="logout-button-container">
+            <a href="files/php/logout.php" id="logout-btn">Logout</a>
+        </div>
+    <?php endif; ?>
 
 </body>
 </html>
