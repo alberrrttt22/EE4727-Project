@@ -1,3 +1,14 @@
+<?php
+	if (isset($_GET['message']) && $_GET['message'] == 'fail'){
+		echo "<script> window.onload = function() {
+                alert('Username or password is incorrect!');";
+		        echo "window.location.href = 'loginform.php';}; </script>";
+	} else if (isset($_GET['message']) && $_GET['message'] == 'resetted'){
+        echo "<script> window.onload = function() {
+            alert('Password reset successfully!');";
+            echo "window.location.href = 'loginform.php';}; </script>";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,6 +109,7 @@
             color: black;
             text-decoration: none;
             font-size: 14px;
+            text-decoration: underline;
         }
 
         /* Footer styling */
@@ -142,28 +154,34 @@
             color: black;
             margin-top: 10px;
         }
+
+        .login-form div {
+            color: black;
+            text-decoration: none;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <div><a href="index.html">XYZ CLINIC</a></div>
+        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
-            <a href="Dashboard.html">Dashboard</a>
-            <a href="Doctors.html">Doctors</a>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="doctors.php">Doctors</a>
+            <a href="loginform.php" class="sign-in">Sign In</a>
         </nav>
     </header>
 
     <div class="login-container">
         <div class="login-form">
             <h2>Sign In</h2>
-            <form action="#">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+            <form action="files/php/login.php" method="POST">
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="email" placeholder="Password" required>
                 <button type="submit">Sign In</button>
                 <div><br>
-                    <a href="#">Forgot password?</a><br>
-                    <a href="signup.html">Don't have an account? Sign up</a>
+                    <a href="pw-reset.php">Forgot password?</a><br>
+                    Don't have an account? <a href="signupform.php">Sign up</a>
                 </div>
             </form>
         </div>

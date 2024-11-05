@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -201,11 +205,17 @@
 
     <!-- Header Section -->
     <header>
-        <div><a href="index.html">XYZ CLINIC</a></div>
+        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
-            <a href="Dashboard.html">Dashboard</a>
-            <a href="Doctors.html">Doctors</a>
-            <a href="login.html" class="sign-up">Sign In</a>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="doctors.php">Doctors</a>
+            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <!-- Display the user's name if logged in -->
+            <span>Welcome, <?php echo htmlspecialchars($_SESSION['fullname']); ?>!</span>
+            <?php else: ?>
+            <!-- Display the Sign In link if not logged in -->
+            <a href="loginform.php" class="sign-in">Sign In</a>
+            <?php endif; ?>
         </nav>
     </header>
 
