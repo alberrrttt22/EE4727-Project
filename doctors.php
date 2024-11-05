@@ -34,6 +34,18 @@ session_start();
             border-bottom: 1px solid #ccc;
         }
 
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+        color: rgb(0, 0, 0);
+        }
+
+        a:hover {
+        color: blue;
+        }
         /* Navigation links */
         nav a {
             margin-right: 20px;
