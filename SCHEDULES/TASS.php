@@ -6,7 +6,6 @@ if ($_SESSION['id'] > 2){
     $patientID = $_SESSION['id'];
 }
 
-
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     // Redirect to the login page if the user is not authenticated
     header("Location: ../loginform.php");
@@ -29,7 +28,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'fail'){
         echo "window.location.href = 'TASS.php';}; </script>";
 } else if (isset($_GET['message']) && $_GET['message'] == 'invalid'){
     echo "<script> window.onload = function() {
-        alert('Please go to the dashboard to edit your appointments');";
+        alert('Unable to book as you are a doctor in the clinic. Please go to the dashboard to edit your appointments');";
         echo "window.location.href = 'TASS.php';}; </script>";
 }
 
@@ -219,11 +218,6 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         <div class="filter-section">
         <form method="POST" action="TASS.php" id="dateForm">
             <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>" onchange="testFunction(this);">
-            <select>
-                <option value="all">All</option>
-                <!-- More options can be added here -->
-            </select>
-            <button>Filter</button>
         </form>
         </div>
 
@@ -328,9 +322,6 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             
 
             const selectedDate = `${month}/${day}/${year}`
-            // if (<?php echo ($patientID && ($doctor_id == 1 || $doctor_id == 2)); ?>){
-            //     var dr_confirmation = confirm('Please go to the dashboard to edit your appointments.')
-            // } else{
             var confirmation = confirm(`${selectedDate} at ${selectedTime} has been selected for booking. Would you like to continue?`);
             
             if (confirmation) {

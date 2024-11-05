@@ -231,6 +231,9 @@
 
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required> <span class="errors" id="email-error"></span>
+                    
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" required> <span class="errors" id="phone-error"></span>
 
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required><span class="errors" id="password-error"></span>

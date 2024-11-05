@@ -3,6 +3,7 @@
 include 'connect.php';
 $fullname = $_POST["name"];
 $email = $_POST["email"];
+$phone = $_POST["phone"];
 $password = $_POST["password"];
 
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -15,8 +16,8 @@ if ($result && $result->num_rows>0){
     exit();
 }
 
-$query = ("INSERT INTO users (fullname, email, hashed_password, user_role )
-    VALUES ('$fullname', '$email', '$hashedPassword','patient')
+$query = ("INSERT INTO users (fullname, phone_no, email, hashed_password, user_role )
+    VALUES ('$fullname', '$phone', '$email', '$hashedPassword','patient')
     ;");
 
 $db->query($query);

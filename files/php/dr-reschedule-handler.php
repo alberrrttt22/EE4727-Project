@@ -5,6 +5,8 @@ include 'mail.php';
 
 $appointment_id = $_POST['appointment_id'];
 $doctorID = $_POST['doctor_id'];
+$date = $_POST['date'];
+$time = $_POST['time'];
 $query = ("DELETE FROM appointments 
     WHERE id = '$appointment_id';");
 

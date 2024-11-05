@@ -13,9 +13,16 @@ if ($_SESSION['id'] == 1 || $_SESSION['id'] == 2){
 }
 
 $patientID = $_SESSION['id'];
-$query = ("SELECT *
-    FROM appointments a JOIN users u 
-    ON a.patient_id = u.id  WHERE patient_id = '$patientID';");
+$query = ("SELECT 
+    a.*, 
+    u1.fullname AS patient_name, 
+    u1.phone_no AS patient_phone,
+    u2.fullname AS doctor_name,
+    u2.phone_no AS doctor_phone
+    FROM appointments a 
+    JOIN users u1 ON a.patient_id = u1.id 
+    JOIN users u2 ON a.doctor_id = u2.id 
+    WHERE a.patient_id = '$patientID';");
 
 $result = $db->query($query);
 
@@ -209,13 +216,14 @@ while ($row = $result->fetch_assoc()){
                     <th>Location</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Phone No.</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
             <?php if (empty($appointments)): ?>
         <tr>
-            <td colspan="5">No appointments found.</td>
+            <td colspan="6">No appointments found.</td>
         </tr>
     <?php else: ?>
         <?php foreach ($appointments as $index=>$appointment): ?>
@@ -231,6 +239,7 @@ while ($row = $result->fetch_assoc()){
                 <td><?php echo htmlspecialchars("Nanyang Heights"); ?></td>
                 <td><?php echo date("l, d F Y", strtotime($appointment['appointment_date'])); ?></td>
                 <td><?php echo date("g:iA", strtotime($appointment['appointment_time'])); ?></td>
+                <td><?php echo $appointment['doctor_phone'] ?></td>
                 <td><form action="files/php/reschedule-handler.php" id="reschedule-form-<?php echo $index;?>" method="POST">
                     <input type="hidden" name="doctor_id" value="<?= $appointment['doctor_id'] ?>">
                     <input type="hidden" name="date" value="<?= $appointment['appointment_date'] ?>"> 

@@ -9,12 +9,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 $doctorID = $_SESSION['id'];
-$query = ("SELECT 
+$query = ("SELECT
             a.id AS appointment_id,
             a.appointment_date,
             a.appointment_time,
             doctor.fullname AS doctor_name,
-            patient.fullname AS patient_name
+            patient.fullname AS patient_name,
+            patient.phone_no AS patient_phone
           FROM appointments a
           JOIN users doctor ON a.doctor_id = doctor.id
           JOIN users patient ON a.patient_id = patient.id
@@ -212,13 +213,14 @@ while ($row = $result->fetch_assoc()){
                     <th>Location</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Phone No.</th>
                     <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
             <?php if (empty($appointments)): ?>
         <tr>
-            <td colspan="5">No appointments found.</td>
+            <td colspan="6">No appointments found.</td>
         </tr>
     <?php else: ?>
         <?php foreach ($appointments as $index=>$appointment): ?>
@@ -227,9 +229,12 @@ while ($row = $result->fetch_assoc()){
                 <td><?php echo htmlspecialchars("Nanyang Heights"); ?></td>
                 <td><?php echo date("l, d F Y", strtotime($appointment['appointment_date'])); ?></td>
                 <td><?php echo date("g:iA", strtotime($appointment['appointment_time'])); ?></td>
+                <td><?php echo $appointment['patient_phone'] ?></td>
                 <td><form action="files/php/dr-reschedule-handler.php" id="reschedule-form-<?php echo $index;?>" method="POST">
                     <input type="hidden" name="appointment_id" value="<?php echo $appointment['appointment_id'] ?>">
                     <input type="hidden" name="doctor_id" value="<?php echo $doctorID ?>">
+                    <input type="hidden" name="date" value="<?= $appointment['appointment_date'] ?>"> 
+                    <input type="hidden" name="time" value="<?= $appointment['appointment_time'] ?>">
                     <button onclick="confirmAlert(<?php echo $index; ?>);" type="button" id="reschedule-button" class="edit-button">Reschedule/Cancel</button>
                     </form>
                 </td>

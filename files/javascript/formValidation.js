@@ -26,6 +26,20 @@ function validateEmail(){
     }
 }
 
+function validatePhone(){
+    var phone = document.getElementById("phone").value.trim();
+    var phoneError = document.getElementById("phone-error");
+    var phoneRegex = /^[89]\d{7}$/;
+    if (!phoneRegex.test(phone)){
+        phoneError.textContent = "Please input a valid number.";
+        return false;
+    }
+    else {
+        phoneError.textContent =""
+        return true;
+    }
+}
+
 function validatePassword(){
     var password = document.getElementById("password").value.trim();
     var passwordError = document.getElementById("password-error");
@@ -62,6 +76,7 @@ function validateConfirmPW() {
 
 document.getElementById("name").addEventListener("input", validateName);
 document.getElementById("email").addEventListener("input", validateEmail);
+document.getElementById("phone").addEventListener("input", validatePhone);
 document.getElementById("password").addEventListener("input", validatePassword);
 document.getElementById("password").addEventListener("input", validateConfirmPW);
 document.getElementById("confirm-password").addEventListener("input", validateConfirmPW);
@@ -69,12 +84,13 @@ document.getElementById("confirm-password").addEventListener("input", validateCo
 document.getElementById("signup-form").addEventListener("submit", function(event){
     var isNameValid = validateName();
     var isEmailValid = validateEmail();
+    var isPhoneValid = validatePhone();
     var isPasswordValid = validatePassword();
     var isConfirmPWValid = validateConfirmPW();
 
     //Prevent form submission if any validation fails
 
-    if (!isNameValid || !isEmailValid || !isPasswordValid || !isConfirmPWValid) {
+    if (!isNameValid || !isEmailValid || !isPhoneValid || !isPasswordValid || !isConfirmPWValid) {
         event.preventDefault();  // Stop form submission
         alert("Please fix the error message(s)")
     }

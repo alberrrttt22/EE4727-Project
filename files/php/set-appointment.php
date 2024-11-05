@@ -10,6 +10,10 @@ $time = $_POST['time'];
 
 if ($patientID == 1 && $doctorID == 1){
     header("Location:../../SCHEDULES/TASS.php?message=invalid");
+} else if ($patientID == 1 && $doctorID == 2){
+    header("Location:../../SCHEDULES/WXMS.php?message=invalid");
+} else if ($patientID == 2 && $doctorID == 1){
+    header("Location:../../SCHEDULES/WXMS.php?message=invalid");
 } else if ($patientID == 2 && $doctorID == 2){
     header("Location:../../SCHEDULES/WXMS.php?message=invalid");
 } else if ($doctorID == 1){

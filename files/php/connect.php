@@ -9,6 +9,7 @@ $dbname = 'xyzclinic';
 
 $init = ("CREATE TABLE IF NOT EXISTS users(
     id INT PRIMARY KEY AUTO_INCREMENT,
+    phone_no INT NOT NULL,
     email VARCHAR(255) NOT NULL,
     fullname VARCHAR(255) NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
@@ -20,14 +21,14 @@ $db->query($init);
 $password = 'Password!';
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-$init = ("INSERT INTO users(email, fullname, hashed_password, user_role)
-    SELECT 'tanahseng@xyzclinic.sg', 'Tan Ah Seng', '$hashedPassword', 'doctor'
+$init = ("INSERT INTO users(phone_no, email, fullname, hashed_password, user_role)
+    SELECT '88112233','tanahseng@xyzclinic.sg', 'Tan Ah Seng', '$hashedPassword', 'doctor'
     WHERE NOT EXISTS (SELECT 1 FROM users WHERE email = 'tanahseng@xyzclinic.sg');");
 
 $db->query($init);
 
-$init = ("INSERT INTO users(email, fullname, hashed_password, user_role)
-    SELECT 'wongxiaoming@xyzclinic.sg','Wong Xiao Ming', '$hashedPassword', 'doctor'
+$init = ("INSERT INTO users(phone_no, email, fullname, hashed_password, user_role)
+    SELECT '91234567','wongxiaoming@xyzclinic.sg','Wong Xiao Ming', '$hashedPassword', 'doctor'
     WHERE NOT EXISTS (SELECT 1 FROM users WHERE email='wongxiaoming@xyzclinic.sg');");
 
 $db->query($init);
