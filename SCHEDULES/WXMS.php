@@ -227,7 +227,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($time_slots as $time): ?>
+                <?php foreach ($time_slots as $index=>$time): ?>
                 <tr>
                     <td><?= date("g:i A", strtotime($time)) ?></td>
                         <?php
@@ -245,11 +245,11 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                     <td class="<?= $is_available ? 'available-slot' : 'unavailable-slot' ?>">
                         <?php if ($is_available): ?>
                             <!-- Form to send appointment details via POST -->
-                            <form id="appointment-form" action="../files/php/set-appointment.php" method="POST" style="display:block;">
-                                <input type="hidden" name="date" value="<?= $date ?>">
-                                <input type="hidden" name="time" value="<?= $time ?>">
-                                <input type="hidden" name="doctor_id" value="<?= $doctor_id ?>">
-                                <button type="button" onclick="confirmAlert('<?php echo $time ?>');" class="available-slot" style="background:none; border:none; color:inherit; cursor:pointer; width:100%;">
+                            <form id="appointment-form-<?php echo $index;?>" action="../files/php/set-appointment.php" method="POST" style="display:block;">
+                                <input type="hidden" name="date" value="<?php echo $date ?>">
+                                <input type="hidden" name="time" value="<?php echo $time ?>">
+                                <input type="hidden" name="doctor_id" value="<?php echo $doctor_id ?>">
+                                <button type="button" onclick="confirmAlert('<?php echo $time ?>', '<?php echo $index ?>');" class="available-slot" style="background:none; border:none; color:inherit; cursor:pointer; width:100%;">
                                     Available
                                 </button>
                             </form>
@@ -309,7 +309,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             }
         });
 
-        function confirmAlert(selectedTime){
+        function confirmAlert(selectedTime, index){
             const datePicker = document.getElementById('datePicker');
             const date = new Date(datePicker.value);
             const day = date.getDate();
@@ -320,7 +320,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             const selectedDate = `${month}/${day}/${year}`
             var confirmation = confirm(`${selectedDate} at ${selectedTime} has been selected for booking. Would you like to continue?`);
             if (confirmation) {
-                document.getElementById('appointment-form').submit(); 
+                document.getElementById('appointment-form-' + index).submit(); 
             }
         }
 
