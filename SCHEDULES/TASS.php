@@ -2,6 +2,9 @@
 session_start();
 include '../files/php/connect.php';
 
+// Set the default time zone
+date_default_timezone_set('Singapore'); // Adjust as necessary
+
 if ($_SESSION['id'] > 2){
     $patientID = $_SESSION['id'];
 }
@@ -55,20 +58,37 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
 
         body {
             font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-            justify-content: center;
-            align-items: center;
-        }
+            background: url('../b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
 
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         header {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            align-items: center;
             padding: 20px;
-            font-weight: bold;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         nav a {
@@ -90,6 +110,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             max-width: 800px;
             margin: 40px auto;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         h1 {
@@ -123,7 +145,18 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         .table-container {
             overflow-x: auto;
         }
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+        color: rgb(0, 0, 0);
+        }
 
+        a:hover {
+        color: grey;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -158,13 +191,14 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             text-decoration: none;
             display: block;
         }
-
+        
+        /* Footer styling */
         footer {
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
-            width: 100%;
-            margin-top: auto;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .footer-content {
@@ -187,18 +221,96 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             margin: 0 20px;
         }
 
+        .footer-content p {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        /* Bold styling for "Contact us" and "Location" */
+        .footer-content p strong {
+            font-weight: bold;
+        }
+
         .footer-bottom {
             font-size: 14px;
             color: black;
             margin-top: 10px;
         }
+            
+        footer {
+                background-color: #f4f4f4;
+                padding: 20px 0;
+                text-align: center;
+                width: 100%;
+                margin-top: auto;
+                z-index: 2; /* Ensure it appears above the overlay */
+
+            }
+
+            .footer-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                max-width: 800px;
+                margin: 0 auto;
+                flex-wrap: wrap;
+            }
+
+            .footer-content div {
+                margin: 0 20px;
+                text-align: center;
+            }
+
+            .footer-content .separator {
+                border-left: 1px solid #333;
+                height: 40px;
+                margin: 0 20px;
+            }
+
+            .footer-bottom {
+                font-size: 14px;
+                color: black;
+                margin-top: 10px;
+            }
+
+
+        /* Logout button styling */
+        
+
+        /* Logout button container styling */
+        .logout-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        /* Logout button styling */
+        #logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
+        }
     </style>
 </head>
 <body>
-
+<div class="overlay"></div>
     <!-- Header Section -->
     <header>
-        <div>XYZ CLINIC</div>
+    <div><a class="index-link" href="../index.html">XYZ CLINIC</a></div>
         <nav>
             <a href="../dashboard.php">Dashboard</a>
             <a href="../doctors.php">Doctors</a>
@@ -267,7 +379,9 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             </table>
         </div>
     </div>
-
+    <div class="logout-button-container">
+        <a href="../files/php/logout.php" id="logout-btn">Logout</a>
+    </div>
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
@@ -294,7 +408,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             const date = new Date(datePicker.value);
             const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             document.getElementById('day').textContent = 
-            days[date.getDay()] + ' ' + (date.getMonth()+1) + '/' + date.getDate() 
+            days[date.getDay()] + ' ' + date.getDate() + '/' + (date.getMonth()+1)
              + '/' + date.getFullYear();
         }
 
@@ -338,5 +452,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         
         
     </script>
+
+
+
 </body>
 </html>

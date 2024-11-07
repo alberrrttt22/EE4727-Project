@@ -23,21 +23,37 @@
             box-sizing: border-box;
         }
 
-        /* General styling */
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: space-between;
+            justify-content: center;
+            background: url('bb.jpg') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
         }
 
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
+            background-color: #f4f4f4;
             padding: 20px;
             font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         /* Division links */
@@ -49,7 +65,7 @@
             color: rgb(0, 0, 0);
         }
         a:hover {
-            color: blue;
+            color: grey;
         }
         
         /* Navigation links */
@@ -61,10 +77,8 @@
 
         .sign-in {
             padding: 5px 15px;
-            border: 1px solid black;
             text-decoration: none;
             color: black;
-            border-radius: 5px;
         }
 
         /* Form container */
@@ -73,6 +87,7 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         /* Login form styling */
@@ -83,6 +98,8 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            background-color: white;
+            
         }
 
         .login-form input[type="email"],
@@ -117,6 +134,7 @@
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         .footer-content {
@@ -163,6 +181,7 @@
     </style>
 </head>
 <body>
+<div class="overlay"></div>
     <header>
         <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>

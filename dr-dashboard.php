@@ -52,18 +52,34 @@ while ($row = $result->fetch_assoc()){
             background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-        }
+            background: url('b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
 
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: #fff;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .header-logo {
@@ -94,6 +110,8 @@ while ($row = $result->fetch_assoc()){
             padding: 40px 20px;
             width: 80%;
             margin: 0 auto;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         h2 {
@@ -103,11 +121,30 @@ while ($row = $result->fetch_assoc()){
             text-align: center;
         }
 
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+            color: rgb(0, 0, 0);
+        }
+
+        a:hover {
+            color: grey;
+        }
+
         /* Table styling */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         table, th, td {
@@ -122,6 +159,11 @@ while ($row = $result->fetch_assoc()){
         th {
             background-color: #f4f4f4;
             font-weight: bold;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         /* Edit button styling */
@@ -133,14 +175,49 @@ while ($row = $result->fetch_assoc()){
             text-decoration: none;
             border-radius: 5px;
             font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-button:hover {
+            background-color: #0073e6;
+            color: #fff;
+        }
+
+        /* Logout button container styling */
+        .logout-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        /* Logout button styling */
+        #logout-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
         }
 
         /* Footer styling */
         footer {
             background-color: #f4f4f4;
-            padding: 20px;
+            padding: 20px 0;
             text-align: center;
-            border-top: 1px solid #ddd;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .footer-content {
@@ -163,17 +240,69 @@ while ($row = $result->fetch_assoc()){
             margin: 0 20px;
         }
 
+        .footer-content p {
+            font-size: 14px;
+            color: black;
+            line-height: 1.5;
+        }
+
+        /* Bold styling for "Contact us" and "Location" */
+        .footer-content p strong {
+            font-weight: bold;
+        }
+
         .footer-bottom {
             font-size: 14px;
-            color: #666;
+            color: black;
             margin-top: 10px;
         }
 
-        #logout-button{
-            margin: 20px;
-            font-size: 20px;
-            color: black;
+        /* Link styled as a button */
+        #logout-btn {
+            display: inline-block;  /* Keeps the button's width limited to content */
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+            max-width: max-content; /* Prevents button from stretching */
+            z-index: 2; /* Ensure it appears above the overlay */
 
+        }
+
+        /* Hover Effects */
+        #logout-btn:hover {
+            background-color: #ff5252;
+            box-shadow: 0 6px 14px rgba(255, 82, 82, 0.4);
+        }
+
+        /* Ripple Effect */
+        #logout-btn::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        #logout-btn:active::after {
+            width: 0;
+            height: 0;
+            opacity: 1;
+            transition: 0s;
         }
 
         /* Responsive Design */
@@ -185,9 +314,10 @@ while ($row = $result->fetch_assoc()){
     </style>
 </head>
 <body>
+<div class="overlay"></div>
     <!-- Header Section -->
     <header>
-        <div class="header-logo"><a class="index-link" href="index.html">XYZ CLINIC</a></div>
+    <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
             <a href="dashboard.php">Dashboard</a>
             <a href="doctors.php">Doctors</a>
@@ -204,7 +334,7 @@ while ($row = $result->fetch_assoc()){
 
     <!-- Dashboard Section -->
     <div class="dashboard-container">
-        <?php echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['fullname']) . "!"; ?>
+    <h2><?php echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['fullname']) . "!"; ?></h2>
         <h2>My Appointments</h2>
         <table>
             <thead>
@@ -244,8 +374,9 @@ while ($row = $result->fetch_assoc()){
             </tbody>
         </table>
     </div>
-    <a href="files/php/logout.php" id="logout-button">Log out</a>
-
+    <div class="logout-button-container">
+        <a href="files/php/logout.php" id="logout-btn">Logout</a>
+    </div>
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
