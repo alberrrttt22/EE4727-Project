@@ -337,7 +337,6 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                 </thead>
                 <tbody>
                 <?php foreach ($time_slots as $index=>$time): ?>
-                <?php foreach ($time_slots as $index=>$time): ?>
                 <tr>
                     <td><?= date("g:i A", strtotime($time)) ?></td>
                         <?php
@@ -433,7 +432,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             var confirmation = confirm(`${selectedDate} at ${selectedTime} has been selected for booking. Would you like to continue?`);
             
             if (confirmation) {
-                document.getElementById('appointment-form-' + index).submit(); 
+                document.getElementById('appointment-form-'+ index).submit(); 
             }
         }
 
