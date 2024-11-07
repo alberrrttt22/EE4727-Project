@@ -57,20 +57,37 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
 
         body {
             font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-            justify-content: center;
-            align-items: center;
-        }
+            background: url('../b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
 
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         header {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            align-items: center;
             padding: 20px;
-            font-weight: bold;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         nav a {
@@ -92,6 +109,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             max-width: 800px;
             margin: 40px auto;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         h1 {
@@ -131,7 +150,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         }
 
         a:hover {
-        color: blue;
+        color: grey;
         }
 
         table {
@@ -174,6 +193,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .footer-content {
@@ -267,6 +288,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            z-index: 3; /* Ensure it appears above the overlay */
+
         }
 
         #logout-btn:hover {
@@ -276,6 +299,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
     </style>
 </head>
 <body>
+<div class="overlay"></div>
 
     <!-- Header Section -->
     <header>
@@ -297,8 +321,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
     <div class="container">
         <h1>Dr Wong Xiao Ming</h1>
         <div class="filter-section">
-        <form method="POST" action="TASS.php" id="dateForm">
-            <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>">
+        <form method="POST" action="WXMS.php" id="dateForm">
+        <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>" onchange="testFunction(this);">
         </form>
         </div>
 
@@ -349,7 +373,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         </div>
     </div>
     <div class="logout-button-container">
-        <a href="files/php/logout.php" id="logout-btn">Log Out</a>
+        <a href="../files/php/logout.php" id="logout-btn">Log Out</a>
     </div>
     <!-- Footer Section -->
     <footer>
@@ -377,7 +401,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             const date = new Date(datePicker.value);
             const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             document.getElementById('day').textContent = 
-            days[date.getDay()] + ' ' + (date.getMonth()+1) + '/' + date.getDate() 
+            days[date.getDay()] + ' ' + date.getDate() + '/' + (date.getMonth()+1)
              + '/' + date.getFullYear();
         }
 

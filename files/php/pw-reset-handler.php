@@ -13,7 +13,7 @@ if ($result && $result->num_rows > 0){
     $query = ("INSERT INTO pw_reset(email, reset_token, reset_expires)
     VALUES ('$email', '$token', '$expires');");
     $db->query($query);
-    $resetLink = "http://localhost/sites/EE4727-Project/files/php/pw-resetter.php?token=" . urlencode($token) . "&email=" . urlencode($email);
+    $resetLink = "http://localhost/EE4727-Project/files/php/pw-resetter.php?token=" . urlencode($token) . "&email=" . urlencode($email);
     if (mail($example, "Password Reset", "Click this link to reset your password: $resetLink (Expires in 5 min)", $return)) {
         header('Location: ../../pw-reset.php?message=success');
     }

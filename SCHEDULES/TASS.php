@@ -58,20 +58,37 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
 
         body {
             font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-            justify-content: center;
-            align-items: center;
-        }
+            background: url('../b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
 
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         header {
             display: flex;
             justify-content: space-between;
-            width: 100%;
+            align-items: center;
             padding: 20px;
-            font-weight: bold;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         nav a {
@@ -93,6 +110,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             max-width: 800px;
             margin: 40px auto;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         h1 {
@@ -136,7 +155,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         }
 
         a:hover {
-        color: blue;
+        color: grey;
         }
         table {
             width: 100%;
@@ -178,6 +197,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .footer-content {
@@ -223,6 +244,8 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
                 text-align: center;
                 width: 100%;
                 margin-top: auto;
+                z-index: 2; /* Ensure it appears above the overlay */
+
             }
 
             .footer-content {
@@ -284,7 +307,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
     </style>
 </head>
 <body>
-
+<div class="overlay"></div>
     <!-- Header Section -->
     <header>
     <div><a class="index-link" href="../index.html">XYZ CLINIC</a></div>
@@ -357,7 +380,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         </div>
     </div>
     <div class="logout-button-container">
-        <a href="files/php/logout.php" id="logout-btn">Logout</a>
+        <a href="../files/php/logout.php" id="logout-btn">Logout</a>
     </div>
     <!-- Footer Section -->
     <footer>
@@ -385,7 +408,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             const date = new Date(datePicker.value);
             const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
             document.getElementById('day').textContent = 
-            days[date.getDay()] + ' ' + (date.getMonth()+1) + '/' + date.getDate() 
+            days[date.getDay()] + ' ' + date.getDate() + '/' + (date.getMonth()+1)
              + '/' + date.getFullYear();
         }
 

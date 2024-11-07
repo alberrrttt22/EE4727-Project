@@ -15,7 +15,7 @@ session_start();
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         main {
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
@@ -24,11 +24,25 @@ session_start();
         /* General body styling */
         body {
             font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-            justify-content: center;
-            height: 100%;
+            background: url('b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
         }
         
         div a {
@@ -40,7 +54,7 @@ session_start();
         }
         
         a:hover {
-        color: blue;
+        color: grey;
         }
         
         html, body {
@@ -50,12 +64,14 @@ session_start();
         }
         /* Header styling */
         header {
-            background-color: #f4f4f4;
             display: flex;
             justify-content: space-between;
             padding: 20px;
             font-weight: bold;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ccc;
+            position: relative;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
         
         /* Navigation links */
@@ -80,6 +96,8 @@ session_start();
             align-items: center;
             flex-grow: 1;
             padding: 40px 0;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
         
         /* Two-column layout with responsive settings */
@@ -123,6 +141,8 @@ session_start();
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .sign-up-btn {
@@ -156,6 +176,8 @@ session_start();
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         #logout-btn:hover {
@@ -176,6 +198,8 @@ session_start();
         .slideshow-container {
             max-width: 100%;
             position: relative;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
         
         /* Hide images by default */
@@ -239,6 +263,8 @@ session_start();
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
         
         .footer-content {
@@ -292,10 +318,10 @@ session_start();
     </style>
 </head>
 <body>
-
+    <div class="overlay"></div>
     <!-- Header Section -->
     <header>
-        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
+        <div><a class="logo" href="index.html">XYZ CLINIC</a></div>
         <nav>
             <a href="dashboard.php">Dashboard</a>
             <a href="doctors.php">Doctors</a>
@@ -352,7 +378,7 @@ session_start();
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
-            <div><p>XYZ CLINIC</p></div>
+            <div><p>XYZ Clinic</p></div>
             <div class="separator"></div>
             <div><p><strong>Contact us</strong><br>81234567</p></div>
             <div class="separator"></div>

@@ -15,23 +15,37 @@ session_start();
             box-sizing: border-box;
         }
 
-        /* General body styling */
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             justify-content: center;
+            background: url('bb.jpg') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
         }
 
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
             padding: 20px;
             font-weight: bold;
-            background-color: #fff;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ccc;
+            position: relative;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         /* Division links */
@@ -44,7 +58,7 @@ session_start();
         }
 
         a:hover {
-            color: blue;
+            color: grey;
         }
 
         /* Navigation links */
@@ -63,6 +77,8 @@ session_start();
         h2 {
             font-size: 24px;
             margin-bottom: 20px;
+            color: black;
+            background-color: white;
         }
 
         /* Main content styling */
@@ -72,9 +88,11 @@ session_start();
             align-items: center;
             padding: 40px 20px;
             flex-grow: 1;
+            position: relative;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
         .doctor-card a:hover {
-            color: blue; /* Change to blue on hover */
+            color: grey; /* Change to blue on hover */
         }
 
         /* Doctors grid styling */
@@ -121,6 +139,8 @@ session_start();
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            position: relative;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         .footer-content {
@@ -166,6 +186,7 @@ session_start();
             bottom: 20px;
             right: 20px;
             z-index: 1000;
+
         }
 
         /* Logout button styling */
@@ -197,7 +218,7 @@ session_start();
     </style>
 </head>
 <body>
-
+<div class="overlay"></div>
     <!-- Header Section -->
     <header>
         <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>

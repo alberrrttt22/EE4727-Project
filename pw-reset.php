@@ -34,15 +34,47 @@
             flex-direction: column;
             min-height: 100vh;
             justify-content: space-between;
+            background: url('b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
+        }
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
+
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+        color: rgb(0, 0, 0);
+        }
+
+        a:hover {
+        color: hover;
         }
 
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 20px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #ddd;
             font-weight: bold;
-            border-bottom: 1px solid #ccc;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         /* Navigation links */
@@ -54,10 +86,8 @@
 
         .sign-in {
             padding: 5px 15px;
-            border: 1px solid black;
             text-decoration: none;
             color: black;
-            border-radius: 5px;
         }
 
         /* Form container */
@@ -66,6 +96,7 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+
         }
 
         /* Login form styling */
@@ -76,6 +107,7 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            background-color: white;
         }
 
         .login-form input[type="email"],
@@ -110,6 +142,8 @@
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .footer-content {
@@ -156,6 +190,9 @@
     </style>
 </head>
 <body>
+
+    <div class="overlay"></div>
+
     <header>
         <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>

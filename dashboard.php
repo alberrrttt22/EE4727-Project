@@ -55,18 +55,34 @@ while ($row = $result->fetch_assoc()){
             background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
+            justify-content: space-between; /* Ensure footer stays at the bottom */
             min-height: 100vh;
-        }
+            background: url('b.webp') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
 
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
+        }
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background-color: #fff;
+            background-color: #f4f4f4;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         .header-logo {
@@ -83,7 +99,7 @@ while ($row = $result->fetch_assoc()){
         }
 
         a:hover {
-        color: blue;
+        color: grey;
         }
         
         /* Navigation links */
@@ -103,6 +119,8 @@ while ($row = $result->fetch_assoc()){
 
         nav span{
             margin-left: 20px;
+            z-index: 5000; /* Ensure it appears above the overlay */
+            font-weight: bold;
         }
 
         /* Main content styling */
@@ -110,6 +128,8 @@ while ($row = $result->fetch_assoc()){
             padding: 40px 20px;
             width: 80%;
             margin: 0 auto;
+            z-index: 1; /* Ensure it appears above the overlay */
+
         }
 
         h2 {
@@ -117,6 +137,8 @@ while ($row = $result->fetch_assoc()){
             margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
+            border-radius: 8px;
         }
 
         /* Table styling */
@@ -128,6 +150,8 @@ while ($row = $result->fetch_assoc()){
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
+            z-index: 1; /* Ensure it appears above the overlay */
+
         }
 
         table, th, td {
@@ -172,6 +196,8 @@ while ($row = $result->fetch_assoc()){
             bottom: 20px;
             right: 20px;
             z-index: 1000;
+            z-index: 2; /* Ensure it appears above the overlay */
+
         }
 
         /* Logout button styling */
@@ -187,6 +213,7 @@ while ($row = $result->fetch_assoc()){
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+
         }
 
         #logout-btn:hover {
@@ -199,6 +226,7 @@ while ($row = $result->fetch_assoc()){
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 1; /* Ensure it appears above the overlay */
         }
 
         .footer-content {
@@ -247,6 +275,8 @@ while ($row = $result->fetch_assoc()){
     </style>
 </head>
 <body>
+<div class="overlay"></div>
+
     <!-- Header Section -->
     <header>
     <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
@@ -266,7 +296,7 @@ while ($row = $result->fetch_assoc()){
 
     <!-- Dashboard Section -->
     <div class="dashboard-container">
-        <?php echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['fullname']) . "!"; ?>
+    <h2><?php echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['fullname']) . "!"; ?></h2>
         <h2>My Appointments</h2>
         <table>
             <thead>
@@ -313,7 +343,7 @@ while ($row = $result->fetch_assoc()){
         </table>
     </div>
     <div class="logout-button-container">
-        <a href="files/php/logout.php" id="logout-btn">Logout</a>
+        <a href="files/php/logout.php" id="logout-btn">Log Out</a>
     </div>
     <!-- Footer Section -->
     <footer>
