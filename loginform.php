@@ -1,3 +1,14 @@
+<?php
+	if (isset($_GET['message']) && $_GET['message'] == 'fail'){
+		echo "<script> window.onload = function() {
+                alert('Username or password is incorrect!');";
+		        echo "window.location.href = 'loginform.php';}; </script>";
+	} else if (isset($_GET['message']) && $_GET['message'] == 'resetted'){
+        echo "<script> window.onload = function() {
+            alert('Password reset successfully!');";
+            echo "window.location.href = 'loginform.php';}; </script>";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,23 +23,51 @@
             box-sizing: border-box;
         }
 
-        /* General styling */
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: space-between;
+            justify-content: center;
+            background: url('bb.jpg') repeat center center fixed;
+            background-repeat: repeat; /* Repeat the background image */
+            background-size: auto; /* Maintain original resolution */
+            background-position: top left; Positioning the repeated image
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9); /* Light overlay */
+            z-index: 1;
         }
 
         /* Header styling */
         header {
             display: flex;
             justify-content: space-between;
+            background-color: #f4f4f4;
             padding: 20px;
             font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
+        /* Division links */
+        div a {
+            text-decoration: none;
+            color: black;
+        }
+        a:visited {
+            color: rgb(0, 0, 0);
+        }
+        a:hover {
+            color: grey;
+        }
+        
         /* Navigation links */
         nav a {
             margin-right: 20px;
@@ -38,10 +77,8 @@
 
         .sign-in {
             padding: 5px 15px;
-            border: 1px solid black;
             text-decoration: none;
             color: black;
-            border-radius: 5px;
         }
 
         /* Form container */
@@ -50,6 +87,7 @@
             justify-content: center;
             align-items: center;
             flex-grow: 1;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         /* Login form styling */
@@ -60,6 +98,8 @@
             max-width: 400px;
             width: 100%;
             text-align: center;
+            background-color: white;
+            
         }
 
         .login-form input[type="email"],
@@ -86,6 +126,7 @@
             color: black;
             text-decoration: none;
             font-size: 14px;
+            text-decoration: underline;
         }
 
         /* Footer styling */
@@ -93,6 +134,7 @@
             background-color: #f4f4f4;
             padding: 20px 0;
             text-align: center;
+            z-index: 2; /* Ensure it appears above the overlay */
         }
 
         .footer-content {
@@ -130,28 +172,35 @@
             color: black;
             margin-top: 10px;
         }
+
+        .login-form div {
+            color: black;
+            text-decoration: none;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+<div class="overlay"></div>
     <header>
-        <div><a href="index.html">XYZ CLINIC</a></div>
+        <div><a class="index-link" href="index.html">XYZ CLINIC</a></div>
         <nav>
-            <a href="Dashboard.html">Dashboard</a>
-            <a href="Doctors.html">Doctors</a>
-            <a href="login.html" class="sign-in">Sign In</a>
+            <a href="dashboard.php">Dashboard</a>
+            <a href="doctors.php">Doctors</a>
+            <a href="loginform.php" class="sign-in">Sign In</a>
         </nav>
     </header>
 
     <div class="login-container">
         <div class="login-form">
             <h2>Sign In</h2>
-            <form action="#">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+            <form action="files/php/login.php" method="POST">
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <input type="password" name="password" id="email" placeholder="Password" required>
                 <button type="submit">Sign In</button>
                 <div><br>
-                    <a href="#">Forgot password?</a><br>
-                    <a href="signup.html">Don't have an account? Sign up</a>
+                    <a href="pw-reset.php">Forgot password?</a><br>
+                    Don't have an account? <a href="signupform.php">Sign up</a>
                 </div>
             </form>
         </div>
