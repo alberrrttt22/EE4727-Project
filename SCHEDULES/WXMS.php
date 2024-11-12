@@ -16,8 +16,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 if (isset($_POST['datePicker'])) {
     $date = $_POST['datePicker'];
+    $todayDate = date("Y-m-d");
 } else {
     $date = date("Y-m-d");
+    $todayDate = date("Y-m-d");
 }
 
 if (isset($_GET['message']) && $_GET['message'] == 'fail'){
@@ -322,7 +324,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         <h1>Dr Wong Xiao Ming</h1>
         <div class="filter-section">
         <form method="POST" action="WXMS.php" id="dateForm">
-        <input type="date" name="datePicker" id="datePicker" value="<?php echo htmlspecialchars($date); ?>" onchange="testFunction(this);">
+        <input type="date" name="datePicker" id="datePicker" min="<?php echo htmlspecialchars($todayDate); ?>" value="<?php echo htmlspecialchars($date); ?>" onchange="testFunction(this);">
         </form>
         </div>
 
@@ -406,9 +408,9 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
         }
 
         const dateInput = document.getElementById('datePicker')
-        const today = new Date();
-        const formattedToday = today.toISOString().split('T')[0];
-        dateInput.setAttribute('min', formattedToday);
+        // const today = new Date();
+        // const formattedToday = today.toISOString().split('T')[0];
+        // dateInput.setAttribute('min', formattedToday);
         dateInput.addEventListener('input', function () {
             const selectedDate = new Date(this.value);
             const day = selectedDate.getUTCDay();
@@ -416,7 +418,7 @@ $time_slots = ['11:30:00', '12:30:00', '13:30:00', '14:30:00', '15:30:00'];
             // Check if the selected day is Saturday (6) or Sunday (0)
             if (day === 6 || day === 0) {
                 alert("Weekends are not available. Please choose a weekday.");
-                this.value = formattedToday; // Clear the input if a weekend is selected
+                this.value = "<?= date('Y-m-d', strtotime($todayDate)); ?>"; // Clear the input if a weekend is selected
             }
         });
 
