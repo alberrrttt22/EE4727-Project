@@ -333,7 +333,7 @@ while ($row = $result->fetch_assoc()){
                     <input type="hidden" name="doctor_id" value="<?= $appointment['doctor_id'] ?>">
                     <input type="hidden" name="date" value="<?= $appointment['appointment_date'] ?>"> 
                     <input type="hidden" name="time" value="<?= $appointment['appointment_time'] ?>">
-                    <button onclick="confirmAlert(<?php echo $index; ?>);" type="button" id="reschedule-button" action="files/php/reschedule-appointment.php" class="edit-button">Reschedule/Cancel</button>
+                    <button onclick="confirmAlert(<?php echo $index; ?>);" type="button" id="reschedule-button" class="edit-button">Reschedule/Cancel</button>
                     </form>
                 </td>
             </tr>
